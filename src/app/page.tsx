@@ -1,4 +1,5 @@
-﻿import { DocsSidebar } from "@/components/layout/docs-sidebar";
+﻿import { DocsNavigationProvider } from "@/components/layout/docs-navigation-provider";
+import { DocsSidebar } from "@/components/layout/docs-sidebar";
 import { SiteHeader } from "@/components/layout/site-header";
 import { AccessibilitySection } from "@/components/sections/accessibility-section";
 import { ClinicalPatternsSection } from "@/components/sections/clinical-patterns-section";
@@ -17,7 +18,7 @@ import { SystemStatesSection } from "@/components/sections/system-states-section
 
 export default function Home() {
   return (
-    <>
+    <DocsNavigationProvider>
       <SiteHeader />
       <DocsSidebar />
 
@@ -37,6 +38,6 @@ export default function Home() {
         <GovernanceSection />
         <ReleaseRoadmapSection />
       </main>
-    </>
+    </DocsNavigationProvider>
   );
 }

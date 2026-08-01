@@ -1,179 +1,13 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { MouseEvent } from "react";
-import {
-  Accessibility,
-  Activity,
-  ArrowRight,
-  BookOpen,
-  Compass,
-  Component,
-  GitPullRequest,
-  Languages,
-  Network,
-  Palette,
-  Rocket,
-  Share2,
-  ShieldCheck,
-  Stethoscope,
-  Users,
-} from "lucide-react";
-
-const documentationNavigation = [
-  { label: "Overview", href: "#overview", icon: BookOpen },
-  { label: "Principles", href: "#principles", icon: Compass },
-  { label: "Foundations", href: "#foundations", icon: Palette },
-  { label: "Components", href: "#components", icon: Component },
-  {
-    label: "Clinical patterns",
-    href: "#clinical-patterns",
-    icon: Stethoscope,
-  },
-  { label: "Accessibility", href: "#accessibility", icon: Accessibility },
-  {
-    label: "Content & language",
-    href: "#content-language",
-    icon: Languages,
-  },
-  {
-    label: "Information architecture",
-    href: "#information-architecture",
-    icon: Network,
-  },
-  {
-    label: "External referral",
-    href: "#external-referral",
-    icon: Share2,
-  },
-  { label: "Role workspaces", href: "#workspaces", icon: Users },
-  { label: "System states", href: "#states", icon: Activity },
-  {
-    label: "Privacy, access & audit",
-    href: "#privacy",
-    icon: ShieldCheck,
-  },
-  { label: "Governance", href: "#governance", icon: GitPullRequest },
-  {
-    label: "Release & migration",
-    href: "#release-roadmap",
-    icon: Rocket,
-  },
-];
-
-const HEADER_OFFSET = 72;
-
-function scrollToSection(
-  href: string,
-  behavior: ScrollBehavior = "smooth",
-) {
-  const section = document.getElementById(href.replace("#", ""));
-
-  if (!section) {
-    return;
-  }
-
-  const top =
-    section.getBoundingClientRect().top +
-    window.scrollY -
-    HEADER_OFFSET;
-
-  window.scrollTo({
-    top: Math.max(0, top),
-    behavior,
-  });
-}
+import { ArrowRight } from "lucide-react";
+import { useDocsNavigation } from "@/components/layout/docs-navigation-provider";
+import { documentationNavigation } from "@/data/navigation";
 
 export function DocsSidebar() {
-  const [activeHref, setActiveHref] = useState("#overview");
-
-  useEffect(() => {
-    let animationFrame: number | null = null;
-
-    const updateActiveSection = () => {
-      let nextHref = documentationNavigation[0].href;
-
-      for (const item of documentationNavigation) {
-        const section = document.getElementById(
-          item.href.replace("#", ""),
-        );
-
-        if (
-          section &&
-          section.getBoundingClientRect().top <= HEADER_OFFSET + 24
-        ) {
-          nextHref = item.href;
-        }
-      }
-
-      const reachedPageEnd =
-        Math.ceil(window.innerHeight + window.scrollY) >=
-        document.documentElement.scrollHeight - 2;
-
-      if (reachedPageEnd) {
-        nextHref =
-          documentationNavigation[documentationNavigation.length - 1]
-            .href;
-      }
-
-      setActiveHref(nextHref);
-    };
-
-    const handleScroll = () => {
-      if (animationFrame !== null) {
-        return;
-      }
-
-      animationFrame = window.requestAnimationFrame(() => {
-        updateActiveSection();
-        animationFrame = null;
-      });
-    };
-
-    const handleHistoryNavigation = () => {
-      const requestedHref = documentationNavigation.some(
-        (item) => item.href === window.location.hash,
-      )
-        ? window.location.hash
-        : "#overview";
-
-      setActiveHref(requestedHref);
-      scrollToSection(requestedHref, "auto");
-    };
-
-    const initialHref = documentationNavigation.some(
-      (item) => item.href === window.location.hash,
-    )
-      ? window.location.hash
-      : "#overview";
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        scrollToSection(initialHref, "auto");
-        updateActiveSection();
-      });
-    });
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("hashchange", handleHistoryNavigation);
-    window.addEventListener("popstate", handleHistoryNavigation);
-
-    return () => {
-      if (animationFrame !== null) {
-        window.cancelAnimationFrame(animationFrame);
-      }
-
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener(
-        "hashchange",
-        handleHistoryNavigation,
-      );
-      window.removeEventListener(
-        "popstate",
-        handleHistoryNavigation,
-      );
-    };
-  }, []);
+  const { activeHref, navigateTo } = useDocsNavigation();
 
   useEffect(() => {
     const activeLink = document.querySelector<HTMLAnchorElement>(
@@ -193,7 +27,10 @@ export function DocsSidebar() {
         top: linkBounds.top - sidebarBounds.top - 28,
         behavior: "smooth",
       });
-    } else if (linkBounds.bottom > sidebarBounds.bottom - 20) {
+    } else if (
+      linkBounds.bottom >
+      sidebarBounds.bottom - 20
+    ) {
       sidebar.scrollBy({
         top: linkBounds.bottom - sidebarBounds.bottom + 28,
         behavior: "smooth",
@@ -205,25 +42,16 @@ export function DocsSidebar() {
     event: MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
-    const section = document.getElementById(href.replace("#", ""));
-
-    if (!section) {
-      return;
-    }
-
     event.preventDefault();
-
-    if (window.location.hash !== href) {
-      window.history.pushState(null, "", href);
-    }
-
-    setActiveHref(href);
-    scrollToSection(href);
+    navigateTo(href);
   };
 
   return (
     <aside className="fixed bottom-0 left-0 top-14 hidden w-[264px] overflow-y-auto border-r border-border-subtle bg-surface lg:block">
-      <nav className="px-3 py-6" aria-label="Spine Design System documentation">
+      <nav
+        className="px-3 py-6"
+        aria-label="Spine Design System documentation"
+      >
         <p className="px-3 pb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-ink-tertiary">
           Documentation
         </p>
@@ -238,7 +66,9 @@ export function DocsSidebar() {
                 <a
                   href={item.href}
                   data-doc-link={item.href}
-                  aria-current={isActive ? "location" : undefined}
+                  aria-current={
+                    isActive ? "location" : undefined
+                  }
                   onClick={(event) =>
                     handleNavigationClick(event, item.href)
                   }
@@ -273,14 +103,17 @@ export function DocsSidebar() {
           </p>
 
           <p className="mt-2 text-xs leading-5 text-white/65">
-            Follow one patient journey across access, consultation,
-            diagnostics, medication and revenue.
+            Follow one patient journey across access,
+            consultation, diagnostics, medication and revenue.
           </p>
 
           <a
             href="#clinical-patterns"
             onClick={(event) =>
-              handleNavigationClick(event, "#clinical-patterns")
+              handleNavigationClick(
+                event,
+                "#clinical-patterns",
+              )
             }
             className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[#8FD3D0]"
           >
@@ -292,5 +125,3 @@ export function DocsSidebar() {
     </aside>
   );
 }
-
-

@@ -1,12 +1,32 @@
-﻿import Image from "next/image";
+﻿"use client";
+
+import Image from "next/image";
+import type { MouseEvent } from "react";
 import { Search } from "lucide-react";
+import { useDocsNavigation } from "@/components/layout/docs-navigation-provider";
+import { documentationNavigation } from "@/data/navigation";
 
 export function SiteHeader() {
+  const { activeHref, navigateTo } = useDocsNavigation();
+
+  const activeLabel =
+    documentationNavigation.find(
+      (item) => item.href === activeHref,
+    )?.label ?? "Overview";
+
+  const handleHomeClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
+    navigateTo("#overview");
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-14 border-b border-border-subtle bg-surface/95 backdrop-blur">
       <div className="flex h-full items-center">
         <a
           href="#overview"
+          onClick={handleHomeClick}
           className="flex h-full w-[264px] items-center border-r border-border-subtle px-5"
           aria-label="Spine Design System home"
         >
@@ -23,10 +43,18 @@ export function SiteHeader() {
         <div className="flex flex-1 items-center justify-between gap-4 px-6">
           <div className="hidden items-center gap-2 text-xs text-ink-secondary sm:flex">
             <span>Clinical operations</span>
-            <span aria-hidden="true" className="text-border-default">
+            <span
+              aria-hidden="true"
+              className="text-border-default"
+            >
               /
             </span>
-            <span className="font-medium text-ink-primary">Overview</span>
+            <span
+              className="font-medium text-ink-primary"
+              aria-live="polite"
+            >
+              {activeLabel}
+            </span>
           </div>
 
           <div className="flex items-center gap-3">

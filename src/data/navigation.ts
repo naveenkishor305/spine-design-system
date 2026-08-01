@@ -1,23 +1,73 @@
 ﻿import {
   Accessibility,
-  Blocks,
+  Activity,
   BookOpen,
+  Compass,
   Component,
-  Grid3X3,
-  Layers3,
+  GitPullRequest,
+  Languages,
+  Network,
+  Palette,
+  Rocket,
+  Share2,
   ShieldCheck,
-  SlidersHorizontal,
-  Workflow,
+  Stethoscope,
+  Users,
 } from "lucide-react";
 
 export const documentationNavigation = [
   { label: "Overview", href: "#overview", icon: BookOpen },
-  { label: "Principles", href: "#principles", icon: ShieldCheck },
-  { label: "Foundations", href: "#foundations", icon: SlidersHorizontal },
+  { label: "Principles", href: "#principles", icon: Compass },
+  { label: "Foundations", href: "#foundations", icon: Palette },
   { label: "Components", href: "#components", icon: Component },
-  { label: "Clinical patterns", href: "#clinical-patterns", icon: Blocks },
-  { label: "Workspaces", href: "#workspaces", icon: Grid3X3 },
-  { label: "States", href: "#states", icon: Layers3 },
-  { label: "Accessibility", href: "#accessibility", icon: Accessibility },
-  { label: "Governance", href: "#governance", icon: Workflow },
-];
+  {
+    label: "Clinical patterns",
+    href: "#clinical-patterns",
+    icon: Stethoscope,
+  },
+  {
+    label: "Accessibility",
+    href: "#accessibility",
+    icon: Accessibility,
+  },
+  {
+    label: "Content & language",
+    href: "#content-language",
+    icon: Languages,
+  },
+  {
+    label: "Information architecture",
+    href: "#information-architecture",
+    icon: Network,
+  },
+  {
+    label: "External referral",
+    href: "#external-referral",
+    icon: Share2,
+  },
+  {
+    label: "Role workspaces",
+    href: "#workspaces",
+    icon: Users,
+  },
+  {
+    label: "System states",
+    href: "#states",
+    icon: Activity,
+  },
+  {
+    label: "Privacy, access & audit",
+    href: "#privacy",
+    icon: ShieldCheck,
+  },
+  {
+    label: "Governance",
+    href: "#governance",
+    icon: GitPullRequest,
+  },
+  {
+    label: "Release & migration",
+    href: "#release-roadmap",
+    icon: Rocket,
+  },
+] as const;
