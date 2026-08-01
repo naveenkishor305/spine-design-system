@@ -1,26 +1,199 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+﻿@import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-graphite: var(--graphite);
+
+  --color-ink-primary: var(--ink-primary);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-link: var(--link);
+  --color-selected: var(--selected);
+  --color-focus: var(--focus);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+
+  /* Neutral foundations */
+  --canvas: #f6f8f8;
+  --surface: #ffffff;
+  --surface-subtle: #eef2f3;
+  --graphite: #101c20;
+
+  /* Typography */
+  --ink-primary: #17262b;
+  --ink-secondary: #4a5f66;
+  --ink-tertiary: #61757c;
+  --ink-inverse: #f4f8f8;
+
+  /* Structure */
+  --border-default: #c7d2d6;
+  --border-subtle: #dee5e7;
+
+  /* Interaction */
+  --action: #075458;
+  --action-hover: #063f42;
+  --link: #08686d;
+  --selected: #d9f0f0;
+  --focus: #6550e8;
+
+  /* Semantic states */
+  --info: #155d8d;
+  --info-surface: #e6f2fa;
+  --success: #176b42;
+  --success-surface: #e4f4eb;
+  --warning: #895000;
+  --warning-surface: #fff1d6;
+  --error: #a8242f;
+  --error-surface: #fff2f3;
+  --critical: #8c1d27;
+  --critical-surface: #fadde0;
+  --restricted: #624293;
+  --restricted-surface: #f0e9fa;
+
+  /* Layout */
+  --documentation-rail: 264px;
+  --utility-header: 56px;
+  --content-max: 1440px;
+
+  /* Shape */
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --radius-overlay: 12px;
+
+  /* Motion */
+  --motion-fast: 140ms;
+  --motion-standard: 220ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink-primary);
+  font-family: var(--font-inter), Inter, "Noto Sans", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--selected);
+  color: var(--ink-primary);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.ds-container {
+  width: min(100% - 48px, var(--content-max));
+  margin-inline: auto;
+}
+
+.ds-section {
+  padding-block: 96px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ds-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-panel);
+}
+
+.ds-eyebrow {
+  color: var(--action);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.ds-mono {
+  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-muted {
+  color: var(--ink-secondary);
+}
+
+.ds-grid {
+  background-image:
+    linear-gradient(to right, rgb(199 210 214 / 22%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(199 210 214 / 22%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (max-width: 768px) {
+  .ds-container {
+    width: min(100% - 32px, var(--content-max));
+  }
+
+  .ds-section {
+    padding-block: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.ds-devanagari {
+  font-family:
+    var(--font-noto-devanagari),
+    "Noto Sans Devanagari",
+    sans-serif;
 }
