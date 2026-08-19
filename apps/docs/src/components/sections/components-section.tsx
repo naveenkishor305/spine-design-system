@@ -1,93 +1,76 @@
-﻿import {
+import {
   AlertTriangle,
   ArrowRight,
   Check,
-  CheckCircle2,
-  ChevronDown,
-  CircleHelp,
   Clock3,
   Copy,
   Info,
   LockKeyhole,
   Search,
-  ShieldAlert,
   ShieldCheck,
   UserRound,
-  XCircle,
 } from "lucide-react";
 
-const semanticStates = [
+import {
+  Alert,
+  Button,
+  IconButton,
+  StatusBadge,
+  SelectField,
+  TextField,
+  type StatusTone,
+} from "@naveenkishor305/spine-ui";
+
+const semanticStates: {
+  tone: StatusTone;
+  title: string;
+  message: string;
+}[] = [
   {
+    tone: "information",
     title: "Information",
     message: "A previous consultation note is available.",
-    icon: Info,
-    foreground: "#155D8D",
-    surface: "#E6F2FA",
-    border: "#B8D8EC",
   },
   {
+    tone: "success",
     title: "Success",
     message: "Critical result acknowledgement recorded.",
-    icon: CheckCircle2,
-    foreground: "#176B42",
-    surface: "#E4F4EB",
-    border: "#B9DFC9",
   },
   {
+    tone: "warning",
     title: "Warning",
     message: "Review the medication interaction before signing.",
-    icon: ShieldAlert,
-    foreground: "#895000",
-    surface: "#FFF1D6",
-    border: "#E9CE91",
   },
   {
+    tone: "critical",
     title: "Critical",
     message: "Potassium result requires immediate clinical action.",
-    icon: AlertTriangle,
-    foreground: "#8C1D27",
-    surface: "#FADDE0",
-    border: "#E7B7BC",
   },
 ];
 
-const statusTokens = [
-  {
-    label: "Confirmed",
-    foreground: "#176B42",
-    surface: "#E4F4EB",
-  },
-  {
-    label: "In review",
-    foreground: "#895000",
-    surface: "#FFF1D6",
-  },
-  {
-    label: "Critical",
-    foreground: "#8C1D27",
-    surface: "#FADDE0",
-  },
-  {
-    label: "Restricted",
-    foreground: "#624293",
-    surface: "#F0E9FA",
-  },
-  {
-    label: "Draft",
-    foreground: "#4A5F66",
-    surface: "#EEF2F3",
-  },
+const statusTokens: { tone: StatusTone; label: string }[] = [
+  { tone: "success", label: "Confirmed" },
+  { tone: "warning", label: "In review" },
+  { tone: "critical", label: "Critical" },
+  { tone: "restricted", label: "Restricted" },
+  { tone: "neutral", label: "Draft" },
 ];
 
-const queueRows = [
+const queueRows: {
+  task: string;
+  patient: string;
+  owner: string;
+  due: string;
+  status: string;
+  tone: StatusTone;
+}[] = [
   {
     task: "Acknowledge critical potassium result",
     patient: "Meera Nair",
     owner: "Dr Ananya Rao",
     due: "Now",
     status: "Critical",
-    statusColor: "#8C1D27",
-    statusSurface: "#FADDE0",
+    tone: "critical",
   },
   {
     task: "Complete consultation note",
@@ -95,8 +78,7 @@ const queueRows = [
     owner: "Dr Ananya Rao",
     due: "10:45",
     status: "Draft",
-    statusColor: "#4A5F66",
-    statusSurface: "#EEF2F3",
+    tone: "neutral",
   },
   {
     task: "Review discharge medication",
@@ -104,8 +86,7 @@ const queueRows = [
     owner: "Clinical pharmacy",
     due: "11:20",
     status: "In review",
-    statusColor: "#895000",
-    statusSurface: "#FFF1D6",
+    tone: "warning",
   },
 ];
 
@@ -131,8 +112,10 @@ export function ComponentsSection() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <p className="text-sm leading-6 text-ink-secondary">
-              Components encode hierarchy, clinical meaning, accessibility and
-              safe interaction patterns across every hospital workspace.
+              Every example on this page renders the real{" "}
+              <code className="ds-mono">@naveenkishor305/spine-ui</code>{" "}
+              components — not a static mockup. What you see here is exactly
+              what ships to product apps.
             </p>
 
             <div className="flex items-start gap-3 border-l-2 border-action pl-4">
@@ -173,14 +156,9 @@ export function ComponentsSection() {
                   Primary
                 </span>
 
-                <button
-                  type="button"
-                  className="inline-flex h-10 w-fit items-center justify-center gap-2 whitespace-nowrap rounded-md bg-action px-4 text-xs font-semibold shadow-sm transition-all hover:-translate-y-0.5 hover:bg-action-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2"
-                  style={{ color: "#FFFFFF" }}
-                >
+                <Button variant="primary" endIcon={<ArrowRight aria-hidden="true" size={14} />}>
                   Acknowledge result
-                  <ArrowRight aria-hidden="true" size={14} />
-                </button>
+                </Button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-[120px_1fr] sm:items-center">
@@ -188,13 +166,9 @@ export function ComponentsSection() {
                   Secondary
                 </span>
 
-                <button
-                  type="button"
-                  className="inline-flex h-10 w-fit items-center justify-center gap-2 whitespace-nowrap rounded-md border border-border-default bg-surface px-4 text-xs font-semibold text-ink-primary transition-colors hover:border-action hover:bg-selected focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2"
-                >
-                  <UserRound aria-hidden="true" size={14} />
+                <Button variant="secondary" startIcon={<UserRound aria-hidden="true" size={14} />}>
                   Open patient record
-                </button>
+                </Button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-[120px_1fr] sm:items-center">
@@ -202,12 +176,7 @@ export function ComponentsSection() {
                   Tertiary
                 </span>
 
-                <button
-                  type="button"
-                  className="inline-flex h-10 w-fit items-center justify-center rounded-md px-3 text-xs font-semibold text-action transition-colors hover:bg-selected focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
-                >
-                  View clinical history
-                </button>
+                <Button variant="tertiary">View clinical history</Button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-[120px_1fr] sm:items-center">
@@ -215,14 +184,12 @@ export function ComponentsSection() {
                   Critical
                 </span>
 
-                <button
-                  type="button"
-                  className="inline-flex h-10 w-fit items-center justify-center gap-2 whitespace-nowrap rounded-md bg-[#8C1D27] px-4 text-xs font-semibold transition-colors hover:bg-[#701820] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C1D27] focus-visible:ring-offset-2"
-                  style={{ color: "#FFFFFF" }}
+                <Button
+                  variant="critical"
+                  startIcon={<AlertTriangle aria-hidden="true" size={14} />}
                 >
-                  <AlertTriangle aria-hidden="true" size={14} />
                   Escalate now
-                </button>
+                </Button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-[120px_1fr] sm:items-center">
@@ -230,14 +197,13 @@ export function ComponentsSection() {
                   Disabled
                 </span>
 
-                <button
-                  type="button"
+                <Button
+                  variant="secondary"
                   disabled
-                  className="inline-flex h-10 w-fit cursor-not-allowed items-center justify-center gap-2 rounded-md border border-border-default bg-surface-subtle px-4 text-xs font-semibold text-ink-tertiary opacity-70"
+                  startIcon={<Check aria-hidden="true" size={14} />}
                 >
-                  <Check aria-hidden="true" size={14} />
                   Sign clinical note
-                </button>
+                </Button>
               </div>
             </div>
           </article>
@@ -259,107 +225,42 @@ export function ComponentsSection() {
             </div>
 
             <div className="grid gap-5 p-5 md:grid-cols-2 md:p-6">
-              <label className="block">
-                <span className="text-xs font-semibold text-ink-primary">
-                  Patient search
-                </span>
+              <TextField
+                id="patient-search"
+                label="Patient search"
+                description="Name, MRN or mobile number"
+                type="search"
+                placeholder="Search patients"
+                startAdornment={<Search aria-hidden="true" size={15} />}
+              />
 
-                <span className="mt-1 block text-[10px] text-ink-tertiary">
-                  Name, MRN or mobile number
-                </span>
+              <TextField
+                id="encounter-id"
+                label="Encounter ID"
+                description="System-generated identifier"
+                value="OPD-26-08154"
+                readOnly
+                className="ds-mono"
+                endAdornment={<LockKeyhole aria-hidden="true" size={14} />}
+              />
 
-                <span className="relative mt-2 block">
-                  <Search
-                    aria-hidden="true"
-                    size={15}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary"
-                  />
+              <SelectField
+                id="care-location"
+                label="Care location"
+                description="Required for clinical context"
+                defaultValue="opd-4"
+              >
+                <option value="opd-4">Internal Medicine · OPD 4</option>
+                <option value="opd-5">Internal Medicine · OPD 5</option>
+              </SelectField>
 
-                  <input
-                    type="search"
-                    placeholder="Search patients"
-                    className="h-11 w-full rounded-md border border-border-default bg-surface pl-9 pr-3 text-xs text-ink-primary outline-none transition-colors placeholder:text-ink-tertiary focus:border-action focus:ring-2 focus:ring-selected"
-                  />
-                </span>
-              </label>
-
-              <label className="block">
-                <span className="text-xs font-semibold text-ink-primary">
-                  Encounter ID
-                </span>
-
-                <span className="mt-1 block text-[10px] text-ink-tertiary">
-                  System-generated identifier
-                </span>
-
-                <span className="relative mt-2 block">
-                  <input
-                    type="text"
-                    value="OPD-26-08154"
-                    readOnly
-                    className="ds-mono h-11 w-full rounded-md border border-border-default bg-surface-subtle px-3 pr-9 text-[11px] text-ink-secondary outline-none"
-                  />
-
-                  <LockKeyhole
-                    aria-hidden="true"
-                    size={14}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary"
-                  />
-                </span>
-              </label>
-
-              <label className="block">
-                <span className="text-xs font-semibold text-ink-primary">
-                  Care location
-                </span>
-
-                <span className="mt-1 block text-[10px] text-ink-tertiary">
-                  Required for clinical context
-                </span>
-
-                <span className="relative mt-2 block">
-                  <select
-                    defaultValue="opd-4"
-                    className="h-11 w-full appearance-none rounded-md border border-border-default bg-surface px-3 pr-9 text-xs text-ink-primary outline-none transition-colors focus:border-action focus:ring-2 focus:ring-selected"
-                  >
-                    <option value="opd-4">Internal Medicine · OPD 4</option>
-                    <option value="opd-5">Internal Medicine · OPD 5</option>
-                  </select>
-
-                  <ChevronDown
-                    aria-hidden="true"
-                    size={14}
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary"
-                  />
-                </span>
-              </label>
-
-              <label className="block">
-                <span className="text-xs font-semibold text-ink-primary">
-                  Medication dose
-                </span>
-
-                <span className="mt-1 block text-[10px] text-[#8C1D27]">
-                  Dose is outside the expected range
-                </span>
-
-                <input
-                  type="text"
-                  value="500 mg"
-                  readOnly
-                  aria-invalid="true"
-                  aria-describedby="dose-error"
-                  className="mt-2 h-11 w-full rounded-md border border-[#B84049] bg-[#FFF9F9] px-3 text-xs text-ink-primary outline-none ring-2 ring-[#FADDE0]"
-                />
-
-                <span
-                  id="dose-error"
-                  className="mt-2 flex items-center gap-1.5 text-[10px] text-[#8C1D27]"
-                >
-                  <XCircle aria-hidden="true" size={12} />
-                  Confirm dose before continuing
-                </span>
-              </label>
+              <TextField
+                id="medication-dose"
+                label="Medication dose"
+                value="500 mg"
+                readOnly
+                error="Confirm dose before continuing"
+              />
             </div>
           </article>
         </div>
@@ -395,13 +296,8 @@ export function ComponentsSection() {
                         Meera Nair
                       </p>
 
-                      <span className="rounded bg-[#FFF1D6] px-2 py-1 text-[9px] font-bold text-[#895000]">
-                        PENICILLIN ALLERGY
-                      </span>
-
-                      <span className="rounded bg-[#E4F4EB] px-2 py-1 text-[9px] font-bold text-[#176B42]">
-                        CONSENT ACTIVE
-                      </span>
+                      <StatusBadge tone="warning">PENICILLIN ALLERGY</StatusBadge>
+                      <StatusBadge tone="success">CONSENT ACTIVE</StatusBadge>
                     </div>
 
                     <p className="ds-mono mt-2 text-[10px] text-ink-tertiary">
@@ -414,13 +310,10 @@ export function ComponentsSection() {
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  aria-label="Copy patient identifier"
-                  className="grid size-9 place-items-center rounded-md border border-border-default bg-surface text-ink-secondary transition-colors hover:border-action hover:bg-selected hover:text-action focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
-                >
-                  <Copy aria-hidden="true" size={15} />
-                </button>
+                <IconButton
+                  label="Copy patient identifier"
+                  icon={<Copy aria-hidden="true" size={15} />}
+                />
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle bg-surface-subtle px-4 py-2.5">
@@ -454,42 +347,11 @@ export function ComponentsSection() {
             </div>
 
             <div className="grid gap-3 p-5 md:grid-cols-2 md:p-6">
-              {semanticStates.map((state) => {
-                const Icon = state.icon;
-
-                return (
-                  <div
-                    key={state.title}
-                    className="rounded-lg border p-4"
-                    style={{
-                      backgroundColor: state.surface,
-                      borderColor: state.border,
-                    }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <Icon
-                        aria-hidden="true"
-                        size={17}
-                        className="mt-0.5 shrink-0"
-                        style={{ color: state.foreground }}
-                      />
-
-                      <div>
-                        <p
-                          className="text-xs font-semibold"
-                          style={{ color: state.foreground }}
-                        >
-                          {state.title}
-                        </p>
-
-                        <p className="mt-1 text-[11px] leading-5 text-ink-secondary">
-                          {state.message}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {semanticStates.map((state) => (
+                <Alert key={state.title} tone={state.tone} title={state.title}>
+                  {state.message}
+                </Alert>
+              ))}
             </div>
           </article>
 
@@ -507,30 +369,15 @@ export function ComponentsSection() {
             <div className="p-5 md:p-6">
               <div className="flex flex-wrap gap-2">
                 {statusTokens.map((status) => (
-                  <span
-                    key={status.label}
-                    className="inline-flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[10px] font-semibold"
-                    style={{
-                      backgroundColor: status.surface,
-                      color: status.foreground,
-                    }}
-                  >
-                    <span
-                      className="size-1.5 rounded-full"
-                      style={{ backgroundColor: status.foreground }}
-                    />
+                  <StatusBadge key={status.label} tone={status.tone} showDot>
                     {status.label}
-                  </span>
+                  </StatusBadge>
                 ))}
               </div>
 
               <div className="mt-7 border-t border-border-subtle pt-5">
                 <div className="flex items-start gap-3">
-                  <CircleHelp
-                    aria-hidden="true"
-                    size={16}
-                    className="mt-0.5 shrink-0 text-action"
-                  />
+                  <Info aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-action" />
 
                   <div>
                     <p className="text-xs font-semibold text-ink-primary">
@@ -607,15 +454,7 @@ export function ComponentsSection() {
                     </td>
 
                     <td className="border-b border-border-subtle px-5 py-4">
-                      <span
-                        className="inline-flex rounded px-2 py-1 text-[9px] font-semibold"
-                        style={{
-                          backgroundColor: row.statusSurface,
-                          color: row.statusColor,
-                        }}
-                      >
-                        {row.status}
-                      </span>
+                      <StatusBadge tone={row.tone}>{row.status}</StatusBadge>
                     </td>
                   </tr>
                 ))}

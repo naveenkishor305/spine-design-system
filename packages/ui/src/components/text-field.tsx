@@ -7,6 +7,7 @@ export type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size">
   label: string;
   description?: string;
   error?: string;
+  startAdornment?: ReactNode;
   endAdornment?: ReactNode;
   fieldClassName?: string;
 };
@@ -16,6 +17,7 @@ export function TextField({
   label,
   description,
   error,
+  startAdornment,
   endAdornment,
   className,
   fieldClassName,
@@ -38,9 +40,19 @@ export function TextField({
       ) : null}
 
       <div className="spine-input-wrap">
+        {startAdornment ? (
+          <span className="spine-field__adornment spine-field__adornment--start">
+            {startAdornment}
+          </span>
+        ) : null}
+
         <input
           id={id}
-          className={cn("spine-input", className)}
+          className={cn(
+            "spine-input",
+            startAdornment ? "spine-input--with-start" : undefined,
+            className,
+          )}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy || undefined}
           {...props}

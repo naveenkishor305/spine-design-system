@@ -285,11 +285,21 @@
   right: 10px;
   display: inline-flex;
   align-items: center;
+  color: var(--ink-tertiary);
   transform: translateY(-50%);
 }
 
-.spine-field:has(.spine-field__adornment) .spine-input {
+.spine-field__adornment--start {
+  right: auto;
+  left: 12px;
+}
+
+.spine-field:has(.spine-field__adornment:not(.spine-field__adornment--start)) .spine-input {
   padding-right: 78px;
+}
+
+.spine-input--with-start {
+  padding-left: 36px;
 }
 
 .spine-select-wrap {
