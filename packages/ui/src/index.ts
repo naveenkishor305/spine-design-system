@@ -27,3 +27,17 @@ export type { SelectFieldProps } from "./components/select-field";
 
 export { CheckboxField } from "./components/checkbox-field";
 export type { CheckboxFieldProps } from "./components/checkbox-field";
+
+// Emergency & Trauma clinical patterns
+export { AcuityBadge } from "./components/clinical/acuity-badge";
+export type { AcuityBadgeProps, AcuityLevel, AcuityProtocol } from "./components/clinical/acuity-badge";
+
+export { PathwayActivationBanner } from "./components/clinical/pathway-activation-banner";
+export type {
+  PathwayActivationBannerProps,
+  PathwayName,
+  PathwayActivationStatus,
+} from "./components/clinical/pathway-activation-banner";
+
+export { ReassessmentTimer } from "./components/clinical/reassessment-timer";
+export type { ReassessmentTimerProps } from "./components/clinical/reassessment-timer";

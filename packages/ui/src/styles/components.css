@@ -583,3 +583,180 @@
 .spine-system-state__action {
   margin-top: 20px;
 }
+
+/* Emergency & Trauma — clinical patterns */
+
+.spine-acuity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-control);
+  padding: 4px 10px 4px 4px;
+  background: var(--surface-subtle);
+}
+
+.spine-acuity-badge__level {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.spine-acuity-badge__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.spine-acuity-badge__protocol {
+  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.spine-acuity-badge__label {
+  color: var(--ink-secondary);
+  font-size: 10px;
+}
+
+.spine-acuity-badge[data-level="1"] {
+  background: var(--acuity-1-surface);
+}
+.spine-acuity-badge[data-level="1"] .spine-acuity-badge__level {
+  background: var(--acuity-1);
+}
+.spine-acuity-badge[data-level="1"] .spine-acuity-badge__protocol {
+  color: var(--acuity-1);
+}
+
+.spine-acuity-badge[data-level="2"] {
+  background: var(--acuity-2-surface);
+}
+.spine-acuity-badge[data-level="2"] .spine-acuity-badge__level {
+  background: var(--acuity-2);
+}
+.spine-acuity-badge[data-level="2"] .spine-acuity-badge__protocol {
+  color: var(--acuity-2);
+}
+
+.spine-acuity-badge[data-level="3"] {
+  background: var(--acuity-3-surface);
+}
+.spine-acuity-badge[data-level="3"] .spine-acuity-badge__level {
+  background: var(--acuity-3);
+}
+.spine-acuity-badge[data-level="3"] .spine-acuity-badge__protocol {
+  color: var(--acuity-3);
+}
+
+.spine-acuity-badge[data-level="4"] {
+  background: var(--acuity-4-surface);
+}
+.spine-acuity-badge[data-level="4"] .spine-acuity-badge__level {
+  background: var(--acuity-4);
+}
+.spine-acuity-badge[data-level="4"] .spine-acuity-badge__protocol {
+  color: var(--acuity-4);
+}
+
+.spine-acuity-badge[data-level="5"] {
+  background: var(--acuity-5-surface);
+}
+.spine-acuity-badge[data-level="5"] .spine-acuity-badge__level {
+  background: var(--acuity-5);
+}
+.spine-acuity-badge[data-level="5"] .spine-acuity-badge__protocol {
+  color: var(--acuity-5);
+}
+
+.spine-pathway-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  border: 1px solid var(--critical);
+  border-left-width: 4px;
+  border-radius: var(--radius-panel);
+  padding: 16px 18px;
+  background: var(--critical-surface);
+  color: var(--critical);
+}
+
+.spine-pathway-banner[data-status="downgraded"],
+.spine-pathway-banner[data-status="stood-down"] {
+  border-color: var(--border-default);
+  border-left-color: var(--ink-tertiary);
+  background: var(--surface-subtle);
+  color: var(--ink-secondary);
+}
+
+.spine-pathway-banner__icon {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.spine-pathway-banner__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.spine-pathway-banner__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.spine-pathway-banner__level {
+  border-radius: 999px;
+  padding: 2px 8px;
+  background: rgb(255 255 255 / 55%);
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.spine-pathway-banner__criteria {
+  margin-top: 4px;
+  color: var(--ink-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.spine-pathway-banner__meta {
+  margin-top: 6px;
+  color: var(--ink-tertiary);
+  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
+  font-size: 10px;
+}
+
+.spine-pathway-banner__action {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+}
+
+.spine-reassessment-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--surface-subtle);
+  color: var(--ink-secondary);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.spine-reassessment-timer[data-overdue="true"] {
+  background: var(--critical-surface);
+  color: var(--critical);
+}

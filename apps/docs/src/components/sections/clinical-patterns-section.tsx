@@ -13,9 +13,18 @@
   Save,
   ShieldAlert,
   ShieldCheck,
+  Siren,
   Stethoscope,
   UserRound,
 } from "lucide-react";
+
+import {
+  AcuityBadge,
+  Button,
+  PathwayActivationBanner,
+  ReassessmentTimer,
+  type AcuityProtocol,
+} from "@naveenkishor305/spine-ui";
 
 const workflowSteps = [
   {
@@ -45,6 +54,40 @@ const labTrend = [
   { time: "09:05", value: "5.4", width: "57%" },
   { time: "10:18", value: "6.2", width: "78%" },
   { time: "10:32", value: "6.7", width: "92%", critical: true },
+];
+
+const triageQueue: {
+  patient: string;
+  complaint: string;
+  level: 1 | 2 | 3 | 4 | 5;
+  protocol: AcuityProtocol;
+  waiting: string;
+  reassessment: number;
+}[] = [
+  {
+    patient: "Devika Iyer",
+    complaint: "Chest pain, diaphoretic",
+    level: 2,
+    protocol: "ESI",
+    waiting: "3 min",
+    reassessment: 12,
+  },
+  {
+    patient: "Ravi Chandran",
+    complaint: "Closed forearm fracture",
+    level: 3,
+    protocol: "CTAS",
+    waiting: "18 min",
+    reassessment: -6,
+  },
+  {
+    patient: "Sunita Verma",
+    complaint: "Sore throat, low-grade fever",
+    level: 5,
+    protocol: "Manchester",
+    waiting: "41 min",
+    reassessment: 54,
+  },
 ];
 
 const disclosureLevels = [
@@ -610,6 +653,98 @@ export function ClinicalPatternsSection() {
                   approval request in the audit history.
                 </p>
               </div>
+            </div>
+          </article>
+        </div>
+
+        <div className="mt-6 grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                Emergency &amp; Trauma
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                One acuity scale, four protocols.
+              </h3>
+
+              <p className="mt-2 text-xs leading-5 text-ink-secondary">
+                ESI, CTAS, Manchester and ATS all map onto the same five-step
+                scale. Color is never the only signal — the numeral and
+                urgency word are always shown together.
+              </p>
+            </div>
+
+            <div className="divide-y divide-border-subtle">
+              {triageQueue.map((row) => (
+                <div
+                  key={row.patient}
+                  className="flex flex-wrap items-center justify-between gap-3 p-4 md:px-6"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-ink-primary">
+                      {row.patient}
+                    </p>
+                    <p className="mt-1 text-[11px] text-ink-secondary">
+                      {row.complaint} · waiting {row.waiting}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <AcuityBadge level={row.level} protocol={row.protocol} />
+                    <ReassessmentTimer dueInMinutes={row.reassessment} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                Pathway activation
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                Time-critical pathways interrupt the workflow.
+              </h3>
+
+              <p className="mt-2 text-xs leading-5 text-ink-secondary">
+                Trauma, stroke, STEMI, sepsis and isolation triggers use the
+                critical tone — distinct from acuity — because the action
+                required is activation, not classification.
+              </p>
+            </div>
+
+            <div className="space-y-4 p-5 md:p-6">
+              <PathwayActivationBanner
+                pathway="Trauma"
+                status="active"
+                activationLevel="Level I"
+                criteria="High-speed collision, unstable vitals on EMS handover"
+                activatedAt="10:32"
+                action={
+                  <>
+                    <Button
+                      variant="critical"
+                      size="sm"
+                      startIcon={<Siren aria-hidden="true" size={13} />}
+                    >
+                      Mobilize team
+                    </Button>
+                    <Button variant="tertiary" size="sm">
+                      Downgrade
+                    </Button>
+                  </>
+                }
+              />
+
+              <PathwayActivationBanner
+                pathway="Stroke"
+                status="downgraded"
+                criteria="Symptom onset outside thrombolysis window"
+                activatedAt="09:58"
+              />
             </div>
           </article>
         </div>

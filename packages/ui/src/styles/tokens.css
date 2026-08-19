@@ -33,6 +33,17 @@
   --color-restricted: var(--restricted);
   --color-restricted-surface: var(--restricted-surface);
 
+  --color-acuity-1: var(--acuity-1);
+  --color-acuity-1-surface: var(--acuity-1-surface);
+  --color-acuity-2: var(--acuity-2);
+  --color-acuity-2-surface: var(--acuity-2-surface);
+  --color-acuity-3: var(--acuity-3);
+  --color-acuity-3-surface: var(--acuity-3-surface);
+  --color-acuity-4: var(--acuity-4);
+  --color-acuity-4-surface: var(--acuity-4-surface);
+  --color-acuity-5: var(--acuity-5);
+  --color-acuity-5-surface: var(--acuity-5-surface);
+
   --font-sans: var(--font-inter);
   --font-mono: var(--font-plex-mono);
 }
@@ -85,6 +96,21 @@
   --critical-surface: #fadde0;
   --restricted: #624293;
   --restricted-surface: #f0e9fa;
+
+  /* Triage acuity — a dedicated 5-step scale, deliberately distinct from
+     the semantic tones above. Protocol-agnostic: applies to ESI, CTAS,
+     Manchester and ATS alike (level 1 = most urgent). Never rely on this
+     color alone — always pair with the numeral/label (see AcuityBadge). */
+  --acuity-1: #b3261e;
+  --acuity-1-surface: #fbe2df;
+  --acuity-2: #b35900;
+  --acuity-2-surface: #fcebda;
+  --acuity-3: #7a6100;
+  --acuity-3-surface: #faf3d6;
+  --acuity-4: #2e7d46;
+  --acuity-4-surface: #e2f4e7;
+  --acuity-5: #2563a8;
+  --acuity-5-surface: #e3effa;
 
   /* Shape */
   --radius-control: 6px;
