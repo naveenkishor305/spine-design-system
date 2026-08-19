@@ -1,29 +1,17 @@
 {
   "name": "spine-design-system",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev --webpack",
-    "build": "next build --webpack",
-    "start": "next start",
-    "lint": "eslint",
-    "capture:renders": "node scripts/capture-renders.mjs"
-  },
-  "dependencies": {
-    "lucide-react": "^1.28.0",
-    "next": "16.2.12",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.12",
-    "playwright": "^1.62.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "dev": "npm run dev --workspace=spine-docs",
+    "build": "npm run build --workspace=@naveenkishor305/spine-ui && npm run build --workspace=spine-docs",
+    "build:ui": "npm run build --workspace=@naveenkishor305/spine-ui",
+    "start": "npm run start --workspace=spine-docs",
+    "lint": "npm run lint --workspaces --if-present",
+    "capture:renders": "npm run capture:renders --workspace=spine-docs"
   }
 }

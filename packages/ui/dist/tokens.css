@@ -1,0 +1,101 @@
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-graphite: var(--graphite);
+
+  --color-ink-primary: var(--ink-primary);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-ink-inverse-secondary: var(--ink-inverse-secondary);
+  --color-ink-inverse-tertiary: var(--ink-inverse-tertiary);
+
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-link: var(--link);
+  --color-selected: var(--selected);
+  --color-focus: var(--focus);
+
+  --color-info: var(--info);
+  --color-info-surface: var(--info-surface);
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-error: var(--error);
+  --color-error-surface: var(--error-surface);
+  --color-critical: var(--critical);
+  --color-critical-surface: var(--critical-surface);
+  --color-restricted: var(--restricted);
+  --color-restricted-surface: var(--restricted-surface);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+/*
+  Spine core tokens — the single source of truth shared by every product
+  and by the documentation site. Product shells (Nadi, future workspaces)
+  may layer additional brand/app-specific tokens on top of this file; they
+  must not redefine these names.
+*/
+:root {
+  color-scheme: light;
+
+  /* Neutral foundations */
+  --canvas: #f6f8f8;
+  --surface: #ffffff;
+  --surface-subtle: #eef2f3;
+  --graphite: #101c20;
+
+  /* Typography */
+  --ink-primary: #17262b;
+  --ink-secondary: #4a5f66;
+  --ink-tertiary: #61757c;
+  --ink-inverse: #f4f8f8;
+  --ink-inverse-secondary: #b8cbd9;
+  --ink-inverse-tertiary: #91a9ba;
+
+  /* Structure */
+  --border-default: #c7d2d6;
+  --border-subtle: #dee5e7;
+
+  /* Operational interaction */
+  --action: #075458;
+  --action-hover: #063f42;
+  --link: #08686d;
+  --selected: #d9f0f0;
+  --focus: #6550e8;
+
+  /* Semantic states — status must never be communicated by color alone;
+     pair every tone with an icon and explicit text label. */
+  --info: #155d8d;
+  --info-surface: #e6f2fa;
+  --success: #176b42;
+  --success-surface: #e4f4eb;
+  --warning: #895000;
+  --warning-surface: #fff1d6;
+  --error: #a8242f;
+  --error-surface: #fff2f3;
+  --critical: #8c1d27;
+  --critical-surface: #fadde0;
+  --restricted: #624293;
+  --restricted-surface: #f0e9fa;
+
+  /* Shape */
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --radius-overlay: 12px;
+
+  /* Elevation */
+  --shadow-panel: 0 1px 2px rgb(16 28 32 / 6%), 0 8px 24px rgb(16 28 32 / 5%);
+  --shadow-overlay: 0 24px 70px rgb(28 54 80 / 12%);
+
+  /* Motion */
+  --motion-fast: 140ms;
+  --motion-standard: 220ms;
+}
