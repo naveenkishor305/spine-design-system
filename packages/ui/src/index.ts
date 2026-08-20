@@ -113,3 +113,13 @@ export type {
   SafetyChecklistPhase,
   ChecklistItem,
 } from "./components/surgical-safety-checklist";
+
+export { InventoryLevelGauge } from "./components/inventory-level-gauge";
+export type { InventoryLevelGaugeProps } from "./components/inventory-level-gauge";
+
+export { SupplierComparisonMatrix } from "./components/supplier-comparison-matrix";
+export type {
+  SupplierComparisonMatrixProps,
+  ComparisonCriterion,
+  ComparisonCandidate,
+} from "./components/supplier-comparison-matrix";

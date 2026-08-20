@@ -21,6 +21,7 @@ import {
   DispatchBoard,
   IconButton,
   InteractionSeverityBadge,
+  InventoryLevelGauge,
   IsolationTypeBadge,
   MetricTile,
   ProcessStageTracker,
@@ -30,9 +31,12 @@ import {
   SlotGrid,
   StatusBadge,
   SelectField,
+  SupplierComparisonMatrix,
   TextField,
   Timeline,
   VarianceIndicator,
+  type ComparisonCandidate,
+  type ComparisonCriterion,
   type ProcessStage,
   type StatusTone,
 } from "@naveenkishor305/spine-ui";
@@ -165,6 +169,18 @@ const dispatchColumns = [
       },
     ],
   },
+];
+
+const sourcingCriteria: ComparisonCriterion[] = [
+  { id: "price", label: "Price", weight: 0.4 },
+  { id: "delivery", label: "Delivery reliability", weight: 0.35 },
+  { id: "compliance", label: "Compliance", weight: 0.25 },
+];
+
+const sourcingCandidates: ComparisonCandidate[] = [
+  { id: "meditech", name: "MediTech Supplies", scores: { price: 8, delivery: 9, compliance: 10 }, recommended: true },
+  { id: "carewell", name: "Carewell Distribution", scores: { price: 9, delivery: 6, compliance: 8 } },
+  { id: "healthlink", name: "HealthLink Partners", scores: { price: 7, delivery: 7, compliance: 9 } },
 ];
 
 export function ComponentsSection() {
@@ -713,6 +729,23 @@ export function ComponentsSection() {
                     { id: "90plus", label: "90+ days", amount: 23000, displayAmount: "$23,000", severity: "critical" },
                   ]}
                 />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Inventory level gauge
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <InventoryLevelGauge label="IV Fluid — 0.9% NaCl 500ml" current={340} min={200} max={600} unit="units" />
+                  <InventoryLevelGauge label="Surgical gloves — size M" current={80} min={150} max={500} unit="boxes" />
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Supplier comparison matrix
+                </p>
+                <SupplierComparisonMatrix criteria={sourcingCriteria} candidates={sourcingCandidates} />
               </div>
 
               <div>
