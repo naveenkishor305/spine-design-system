@@ -77,6 +77,13 @@ export type { MetricTileProps } from "./components/metric-tile";
 export { RankedBarList } from "./components/ranked-bar-list";
 export type { RankedBarListProps, RankedBarItem } from "./components/ranked-bar-list";
 
+export { AgingReceivablesLadder } from "./components/aging-receivables-ladder";
+export type {
+  AgingReceivablesLadderProps,
+  AgingBucket,
+  AgingBucketSeverity,
+} from "./components/aging-receivables-ladder";
+
 export { VarianceIndicator } from "./components/variance-indicator";
 export type { VarianceIndicatorProps, VarianceSentiment } from "./components/variance-indicator";
 

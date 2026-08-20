@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import {
+  AgingReceivablesLadder,
   Alert,
   AssetLifecycleRecord,
   Button,
@@ -698,6 +699,20 @@ export function ComponentsSection() {
                   Ranked bar list
                 </p>
                 <RankedBarList items={rankedDepartments} />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Aging receivables ladder
+                </p>
+                <AgingReceivablesLadder
+                  buckets={[
+                    { id: "current", label: "Current", amount: 182000, displayAmount: "$182,000", severity: "success" },
+                    { id: "31-60", label: "31–60 days", amount: 94000, displayAmount: "$94,000", severity: "neutral" },
+                    { id: "61-90", label: "61–90 days", amount: 41000, displayAmount: "$41,000", severity: "warning" },
+                    { id: "90plus", label: "90+ days", amount: 23000, displayAmount: "$23,000", severity: "critical" },
+                  ]}
+                />
               </div>
 
               <div>
