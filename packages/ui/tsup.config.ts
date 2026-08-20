@@ -9,6 +9,15 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: ["react", "react-dom", "next", "next/link"],
+  // esbuild silently drops "use client" directives from source files when
+  // bundling multiple modules into one output -- there's no per-file
+  // preservation without code-splitting into many chunks. Since every
+  // component in this package is meant to run in the browser (and some,
+  // like SlotGrid, attach event handlers directly), the whole package is
+  // client-only. Banner it here instead of chasing which file needs it.
+  banner: {
+    js: '"use client";',
+  },
   esbuildPlugins: [
     copy({
       resolveFrom: "cwd",

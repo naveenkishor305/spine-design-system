@@ -13,11 +13,25 @@ import {
 
 import {
   Alert,
+  AssetLifecycleRecord,
   Button,
+  ChainOfCustodyTrail,
+  ComplianceCountdown,
+  DispatchBoard,
   IconButton,
+  IsolationTypeBadge,
+  MetricTile,
+  ProcessStageTracker,
+  QueueTokenBoard,
+  RankedBarList,
+  RiskScoreBadge,
+  SlotGrid,
   StatusBadge,
   SelectField,
   TextField,
+  Timeline,
+  VarianceIndicator,
+  type ProcessStage,
   type StatusTone,
 } from "@naveenkishor305/spine-ui";
 
@@ -87,6 +101,67 @@ const queueRows: {
     due: "11:20",
     status: "In review",
     tone: "warning",
+  },
+];
+
+const requisitionStages: ProcessStage[] = [
+  { id: "requested", label: "Requested", status: "complete" },
+  { id: "approved", label: "Approved", status: "complete" },
+  { id: "fulfilled", label: "Fulfilled", status: "current" },
+  { id: "closed", label: "Closed", status: "upcoming" },
+];
+
+const rankedDepartments = [
+  { id: "opd", label: "Outpatient Care", value: 412, displayValue: "412 requests" },
+  { id: "ed", label: "Emergency", value: 298, displayValue: "298 requests" },
+  { id: "inpatient", label: "Inpatient Wards", value: 176, displayValue: "176 requests" },
+  { id: "pharmacy", label: "Pharmacy", value: 94, displayValue: "94 requests" },
+];
+
+const dispatchColumns = [
+  {
+    status: "new" as const,
+    label: "New",
+    tickets: [
+      {
+        id: "t-1",
+        title: "Isolation room terminal clean",
+        location: "Ward 4B · Room 412",
+        priority: "high" as const,
+        status: "new" as const,
+        requestedAt: "5 min ago",
+      },
+    ],
+  },
+  {
+    status: "assigned" as const,
+    label: "Assigned",
+    tickets: [
+      {
+        id: "t-2",
+        title: "Infusion pump repair",
+        location: "Biomedical workshop",
+        priority: "urgent" as const,
+        status: "assigned" as const,
+        assignee: "R. Fernandes",
+        requestedAt: "22 min ago",
+      },
+    ],
+  },
+  {
+    status: "verified" as const,
+    label: "Verified",
+    tickets: [
+      {
+        id: "t-3",
+        title: "Specimen courier run",
+        location: "Lab → Radiology",
+        priority: "standard" as const,
+        status: "verified" as const,
+        assignee: "Transport team B",
+        requestedAt: "1 hr ago",
+      },
+    ],
   },
 ];
 
@@ -462,6 +537,198 @@ export function ComponentsSection() {
             </table>
           </div>
         </article>
+
+        <div className="mt-6 grid gap-6 xl:grid-cols-2">
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                Shared primitives · lifecycle &amp; audit
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                Reused across every operational module.
+              </h3>
+
+              <p className="mt-2 text-xs leading-5 text-ink-secondary">
+                One process-stage and one audit-trail language, composed
+                differently per domain — a requisition, an asset, a blood
+                product handoff.
+              </p>
+            </div>
+
+            <div className="grid gap-6 p-5 md:p-6">
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Process stage tracker
+                </p>
+                <ProcessStageTracker stages={requisitionStages} />
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <ComplianceCountdown label="Calibration" dueText="due in 6 days" />
+                <ComplianceCountdown label="Calibration" dueText="overdue by 2 days" overdue />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Chain of custody
+                </p>
+                <ChainOfCustodyTrail
+                  handoffs={[
+                    {
+                      id: "h-1",
+                      timestamp: "09:14",
+                      from: "Blood bank",
+                      to: "OT 2 runner",
+                      item: "Unit 4 packed red cells",
+                      witness: "S. Patel, RN",
+                      verified: true,
+                    },
+                    {
+                      id: "h-2",
+                      timestamp: "09:21",
+                      from: "OT 2 runner",
+                      to: "Anesthesia team",
+                      item: "Unit 4 packed red cells",
+                      verified: false,
+                    },
+                  ]}
+                />
+              </div>
+
+              <AssetLifecycleRecord
+                assetName="Infusion pump — IP-0231"
+                assetId="BME-AST-0231"
+                stage="maintenance-due"
+                location="Ward 4B"
+                nextAction={<ComplianceCountdown label="PM service" dueText="due in 3 days" />}
+              />
+
+              <div className="flex flex-wrap gap-2">
+                <RiskScoreBadge label="Fall risk" level="high" score="14" />
+                <RiskScoreBadge label="MUST score" level="low" score="0" />
+                <RiskScoreBadge label="Safeguarding" level="critical" />
+                <IsolationTypeBadge type="contact" />
+                <IsolationTypeBadge type="airborne" />
+              </div>
+            </div>
+          </article>
+
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                Shared primitives · scheduling, dispatch &amp; dashboards
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                The gaps closed in already-shipped scope.
+              </h3>
+
+              <p className="mt-2 text-xs leading-5 text-ink-secondary">
+                Scheduling and outpatient-care shipped in v1 without a real
+                slot grid or queue board — every screen faked it with a
+                table. These close that gap.
+              </p>
+            </div>
+
+            <div className="grid gap-6 p-5 md:p-6">
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Provider slot grid
+                </p>
+                <SlotGrid
+                  resources={[
+                    {
+                      id: "dr-rao",
+                      name: "Dr. Rao — OPD 4",
+                      slots: [
+                        { id: "s1", time: "09:00", status: "booked", label: "A. Menon" },
+                        { id: "s2", time: "09:15", status: "available" },
+                        { id: "s3", time: "09:30", status: "selected" },
+                        { id: "s4", time: "09:45", status: "blocked" },
+                      ],
+                    },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Queue token board
+                </p>
+                <QueueTokenBoard
+                  tokens={[
+                    { id: "q1", token: "A-014", label: "Meera Nair", status: "called", waitTime: "0 min" },
+                    { id: "q2", token: "A-015", label: "Arjun Menon", status: "waiting", waitTime: "8 min" },
+                    { id: "q3", token: "A-016", label: "Farah Khan", status: "in-progress" },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Dispatch board
+                </p>
+                <DispatchBoard columns={dispatchColumns} />
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                <MetricTile
+                  label="Avg. wait time"
+                  value="12 min"
+                  comparison={<VarianceIndicator value="-2.3 min" sentiment="positive" />}
+                />
+                <MetricTile
+                  label="SLA breaches"
+                  value="4"
+                  comparison={<VarianceIndicator value="+1" sentiment="negative" />}
+                />
+                <MetricTile
+                  label="Occupied beds"
+                  value="87%"
+                  comparison={<VarianceIndicator value="No change" sentiment="neutral" />}
+                />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Ranked bar list
+                </p>
+                <RankedBarList items={rankedDepartments} />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Timeline
+                </p>
+                <Timeline
+                  entries={[
+                    {
+                      id: "e1",
+                      timestamp: "08:02",
+                      actor: "R. Fernandes, Biomedical",
+                      description: "Repair ticket opened for infusion pump IP-0231.",
+                    },
+                    {
+                      id: "e2",
+                      timestamp: "08:45",
+                      actor: "R. Fernandes, Biomedical",
+                      description: "Diagnosed faulty occlusion sensor.",
+                      tone: "warning",
+                    },
+                    {
+                      id: "e3",
+                      timestamp: "09:30",
+                      actor: "R. Fernandes, Biomedical",
+                      description: "Part replaced, safety-tested, returned to service.",
+                      tone: "success",
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          </article>
+        </div>
 
         <aside className="mt-6 flex flex-col justify-between gap-6 rounded-xl bg-graphite p-6 text-white md:flex-row md:items-center md:p-8">
           <div className="flex max-w-3xl items-start gap-4">

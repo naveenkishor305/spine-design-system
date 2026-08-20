@@ -1,31 +1,18 @@
-import { Clock3 } from "lucide-react";
 import type { HTMLAttributes } from "react";
 
-import { cn } from "../../cn";
+import { ComplianceCountdown } from "../compliance-countdown";
 
 export type ReassessmentTimerProps = HTMLAttributes<HTMLSpanElement> & {
   /** Minutes remaining until mandatory re-triage. Negative once overdue. */
   dueInMinutes: number;
 };
 
-export function ReassessmentTimer({
-  dueInMinutes,
-  className,
-  ...props
-}: ReassessmentTimerProps) {
+/** ED-specific specialization of ComplianceCountdown for the fixed re-triage interval. */
+export function ReassessmentTimer({ dueInMinutes, ...props }: ReassessmentTimerProps) {
   const overdue = dueInMinutes <= 0;
+  const dueText = overdue
+    ? `overdue by ${Math.abs(dueInMinutes)} min`
+    : `due in ${dueInMinutes} min`;
 
-  return (
-    <span
-      className={cn("spine-reassessment-timer", className)}
-      data-overdue={overdue || undefined}
-      role={overdue ? "alert" : "status"}
-      {...props}
-    >
-      <Clock3 aria-hidden="true" size={13} />
-      {overdue
-        ? `Reassessment overdue by ${Math.abs(dueInMinutes)} min`
-        : `Reassessment due in ${dueInMinutes} min`}
-    </span>
-  );
+  return <ComplianceCountdown label="Reassessment" dueText={dueText} overdue={overdue} {...props} />;
 }
