@@ -19,6 +19,7 @@ import {
   ChainOfCustodyTrail,
   ComplianceCountdown,
   DispatchBoard,
+  HierarchyTree,
   IconButton,
   InteractionSeverityBadge,
   InventoryLevelGauge,
@@ -746,6 +747,34 @@ export function ComponentsSection() {
                   Supplier comparison matrix
                 </p>
                 <SupplierComparisonMatrix criteria={sourcingCriteria} candidates={sourcingCandidates} />
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.1em] text-ink-tertiary">
+                  Hierarchy tree
+                </p>
+                <HierarchyTree
+                  nodes={[
+                    {
+                      id: "hospital",
+                      label: "Hospital OS",
+                      meta: "Enterprise",
+                      children: [
+                        {
+                          id: "clinical-ops",
+                          label: "Clinical Operations",
+                          meta: "3 departments",
+                          children: [
+                            { id: "ed", label: "Emergency Department" },
+                            { id: "icu", label: "Intensive Care Unit" },
+                          ],
+                        },
+                        { id: "support-services", label: "Support Services", meta: "6 departments" },
+                      ],
+                    },
+                  ]}
+                  selectedId="ed"
+                />
               </div>
 
               <div>

@@ -123,3 +123,6 @@ export type {
   ComparisonCriterion,
   ComparisonCandidate,
 } from "./components/supplier-comparison-matrix";
+
+export { HierarchyTree } from "./components/hierarchy-tree";
+export type { HierarchyTreeProps, HierarchyNode } from "./components/hierarchy-tree";
