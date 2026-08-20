@@ -170,7 +170,9 @@ export function PrinciplesSection() {
 
               <p className="max-w-sm text-sm leading-6 text-ink-secondary">
                 These principles govern foundations, components, role-based
-                workspaces and the integrated outpatient journey.
+                workspaces and every connected journey across the platform —
+                from outpatient care through emergency, inpatient, surgical
+                and enterprise operations.
               </p>
             </div>
 

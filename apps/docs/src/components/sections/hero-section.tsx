@@ -17,14 +17,14 @@
 const contextLabels = [
   "Indian multi-specialty hospitals",
   "100–300 beds",
-  "Integrated OPD journey",
+  "29 connected platform modules",
   "Desktop-first enterprise system",
 ];
 
 const capabilityMarkers = [
-  ["156", "Product decisions"],
+  ["35", "Shipped components"],
+  ["29", "Platform modules"],
   ["AA", "Accessibility target"],
-  ["24/7", "Offline-aware"],
   ["RBAC", "Contextual access"],
   ["AUDIT", "Ready patterns"],
 ];
@@ -66,7 +66,7 @@ export function HeroSection() {
         <div className="grid items-center gap-14 xl:grid-cols-[minmax(0,0.82fr)_minmax(560px,1.18fr)]">
           <div>
             <p className="ds-eyebrow">
-              Spine Design System · Hospital operating platform
+              Spine Design System v2 · Hospital operating platform
             </p>
 
             <h1 className="mt-5 max-w-3xl text-5xl font-semibold tracking-[-0.045em] text-ink-primary md:text-6xl xl:text-[68px] xl:leading-[0.98]">
@@ -75,13 +75,15 @@ export function HeroSection() {
             </h1>
 
             <p className="mt-7 max-w-xl text-xl leading-8 text-ink-secondary">
-              One operating language for safer, connected outpatient care.
+              One operating language for a whole hospital, not one department.
             </p>
 
             <p className="mt-4 max-w-xl text-sm leading-6 text-ink-secondary">
-              A role-aware system connecting patient access, clinical
-              documentation, diagnostics, medication, billing and hospital
-              operations without losing identity, ownership or system state.
+              A role-aware system spanning patient access, emergency and
+              trauma, inpatient and critical care, diagnostics, pharmacy,
+              revenue cycle, supply chain, allied health, facility operations
+              and enterprise governance — without losing identity, ownership
+              or system state.
             </p>
 
             <div className="mt-7 flex max-w-2xl flex-wrap gap-2">
@@ -108,7 +110,7 @@ export function HeroSection() {
                 href="#clinical-patterns"
                 className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-md border border-border-default bg-surface px-5 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:border-action hover:bg-selected focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2" style={{ color: "#17262B" }}
               >
-                View the OPD workflow
+                View clinical patterns
               </a>
             </div>
           </div>

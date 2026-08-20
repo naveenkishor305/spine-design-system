@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | Spine",
   },
   description:
-    "Spine is the role-aware design system for Hospital OS, connecting safer clinical workflows, patient identity, diagnostics, medication, billing and operations.",
+    "Spine is the role-aware design system for Hospital OS, spanning patient access, emergency and trauma, inpatient and critical care, diagnostics, pharmacy, revenue cycle, supply chain, allied health, facility operations and enterprise governance — shipped as a real component package, not just documentation.",
   applicationName: "Spine Design System",
   keywords: [
     "Spine Design System",
@@ -42,7 +42,10 @@ export const metadata: Metadata = {
     "Enterprise UX",
     "Hospital management",
     "Product design",
-    "Integrated OPD",
+    "Emergency and trauma",
+    "Inpatient and critical care",
+    "Revenue cycle management",
+    "Supply chain",
   ],
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
@@ -51,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Spine — Clinical Operations Design System",
     description:
-      "A role-aware design system for safer, connected hospital operations.",
+      "A role-aware design system for safer, connected hospital operations — across the full platform, not one department.",
     type: "website",
   },
 };

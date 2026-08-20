@@ -945,18 +945,21 @@ export function ReleaseRoadmapSection() {
 
                 <div>
                   <p className="text-sm font-semibold">
-                    Hospital OS v1.0 documentation foundation complete
+                    Hospital OS v2.0 platform-wide component library complete
                   </p>
 
                   <p className="mt-3 text-xs leading-6 text-white/60">
-                    The system now defines principles, foundations, components,
-                    clinical patterns, accessibility, language, architecture,
+                    All 29 platform modules have been surveyed against a
+                    shared, published component package — not just
+                    documentation. Foundations, components, clinical
+                    patterns, accessibility, language, architecture,
                     referrals, role workspaces, system states, privacy,
-                    governance and a controlled migration path.
+                    governance and a controlled migration path all now
+                    reference real, buildable code.
                   </p>
 
                   <p className="mt-5 text-[9px] font-bold uppercase tracking-[0.09em] text-[#8FD3D0]">
-                    Ready for verified pilot implementation
+                    Ready for product implementation, module by module
                   </p>
                 </div>
               </div>
@@ -965,15 +968,15 @@ export function ReleaseRoadmapSection() {
             <div className="flex flex-col justify-between border-t border-white/10 bg-white/[0.03] p-6 xl:border-l xl:border-t-0 md:p-8">
               <div>
                 <p className="text-[8px] font-bold uppercase tracking-[0.09em] text-white/40">
-                  Documentation status
+                  Platform coverage
                 </p>
 
                 <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
-                  13 / 13
+                  29 / 29
                 </p>
 
                 <p className="mt-2 text-[10px] leading-5 text-white/50">
-                  Core documentation sections represented
+                  Modules surveyed · 35 components shipped
                 </p>
               </div>
 
