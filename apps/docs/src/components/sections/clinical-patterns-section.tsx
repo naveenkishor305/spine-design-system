@@ -23,7 +23,10 @@ import {
   Button,
   PathwayActivationBanner,
   ReassessmentTimer,
+  RiskScoreBadge,
+  SurgicalSafetyChecklist,
   type AcuityProtocol,
+  type SafetyChecklistPhase,
 } from "@naveenkishor305/spine-ui";
 
 const workflowSteps = [
@@ -87,6 +90,37 @@ const triageQueue: {
     protocol: "Manchester",
     waiting: "41 min",
     reassessment: 54,
+  },
+];
+
+const safetyChecklistPhases: SafetyChecklistPhase[] = [
+  {
+    id: "sign-in",
+    label: "Sign-In",
+    status: "complete",
+    items: [
+      { id: "identity", label: "Patient identity, site and procedure confirmed", checked: true },
+      { id: "consent", label: "Consent confirmed", checked: true },
+    ],
+  },
+  {
+    id: "time-out",
+    label: "Time-Out",
+    status: "current",
+    items: [
+      { id: "team", label: "Team introductions complete", checked: true },
+      { id: "site", label: "Surgical site and side confirmed aloud", checked: true },
+      { id: "antibiotics", label: "Antibiotic prophylaxis given within 60 min", checked: false },
+    ],
+  },
+  {
+    id: "sign-out",
+    label: "Sign-Out",
+    status: "upcoming",
+    items: [
+      { id: "counts", label: "Instrument, sponge and needle counts correct", checked: false },
+      { id: "specimen", label: "Specimen labeling confirmed", checked: false },
+    ],
   },
 ];
 
@@ -745,6 +779,86 @@ export function ClinicalPatternsSection() {
                 criteria="Symptom onset outside thrombolysis window"
                 activatedAt="09:58"
               />
+            </div>
+          </article>
+        </div>
+
+        <div className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                Surgical &amp; Critical Care
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                One genuinely new pattern; the rest is reuse.
+              </h3>
+
+              <p className="mt-2 text-xs leading-5 text-ink-secondary">
+                Surveying inpatient-care and surgical-critical-care's 43
+                screens found only the WHO-style three-phase safety
+                checklist needs a new component. Everything else this
+                cluster needs already existed once the cross-cutting
+                primitives were built.
+              </p>
+            </div>
+
+            <div className="p-5 md:p-6">
+              <SurgicalSafetyChecklist phases={safetyChecklistPhases} />
+            </div>
+          </article>
+
+          <article className="ds-panel overflow-hidden">
+            <div className="border-b border-border-subtle p-5 md:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
+                What this cluster reuses
+              </p>
+
+              <h3 className="mt-3 text-xl font-semibold text-ink-primary">
+                Deliberately not rebuilt.
+              </h3>
+            </div>
+
+            <div className="grid gap-5 p-5 md:p-6">
+              <div>
+                <p className="mb-2 text-[11px] leading-5 text-ink-secondary">
+                  ICU severity scoring (SOFA/APACHE) is a numeric score, not a
+                  new color scale — it reuses <span className="ds-mono">RiskScoreBadge</span>.
+                </p>
+                <RiskScoreBadge label="SOFA score" level="high" score="9" />
+              </div>
+
+              <div>
+                <p className="mb-2 text-[11px] leading-5 text-ink-secondary">
+                  Rapid response and ICU transfer reuse{" "}
+                  <span className="ds-mono">PathwayActivationBanner</span> —
+                  same activation semantics as an ED pathway trigger.
+                </p>
+                <PathwayActivationBanner
+                  pathway="Rapid Response"
+                  status="active"
+                  criteria="Early Warning Score 7 — new-onset hypotension"
+                  activatedAt="14:02"
+                />
+              </div>
+
+              <ul className="grid gap-1.5 text-[11px] leading-5 text-ink-secondary">
+                <li>
+                  Theatre scheduling → <span className="ds-mono">SlotGrid</span> (theatres as
+                  resource rows)
+                </li>
+                <li>
+                  Ventilator / hemodynamic trends → <span className="ds-mono">Timeline</span>
+                </li>
+                <li>
+                  Implant &amp; specimen traceability →{" "}
+                  <span className="ds-mono">ChainOfCustodyTrail</span>
+                </li>
+                <li>
+                  Discharge &amp; closure readiness →{" "}
+                  <span className="ds-mono">ProcessStageTracker</span>
+                </li>
+              </ul>
             </div>
           </article>
         </div>

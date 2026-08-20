@@ -1334,3 +1334,37 @@
 .spine-asset-record__stages {
   overflow-x: auto;
 }
+
+.spine-safety-checklist {
+  display: grid;
+  gap: 20px;
+}
+
+.spine-safety-checklist__stages {
+  overflow-x: auto;
+}
+
+.spine-safety-checklist__phase {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-panel);
+  padding: 16px;
+  background: var(--surface-subtle);
+}
+
+.spine-safety-checklist__phase-title {
+  margin: 0;
+  color: var(--ink-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.spine-safety-checklist__items {
+  display: grid;
+  gap: 8px;
+}
+
+.spine-safety-checklist__complete {
+  justify-self: start;
+}

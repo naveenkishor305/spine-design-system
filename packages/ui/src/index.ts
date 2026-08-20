@@ -93,3 +93,10 @@ export type { DispatchBoardProps, DispatchBoardColumn } from "./components/dispa
 
 export { AssetLifecycleRecord } from "./components/asset-lifecycle-record";
 export type { AssetLifecycleRecordProps, AssetLifecycleStage } from "./components/asset-lifecycle-record";
+
+export { SurgicalSafetyChecklist } from "./components/surgical-safety-checklist";
+export type {
+  SurgicalSafetyChecklistProps,
+  SafetyChecklistPhase,
+  ChecklistItem,
+} from "./components/surgical-safety-checklist";
