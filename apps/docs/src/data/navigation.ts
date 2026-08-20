@@ -1,4 +1,4 @@
-﻿import {
+import {
   Accessibility,
   Activity,
   BookOpen,
@@ -15,15 +15,38 @@
   Users,
 } from "lucide-react";
 
-export const documentationNavigation = [
+export type DocsNavItem = {
+  label: string;
+  href: string;
+  icon: (typeof BookOpen);
+  children?: { label: string; href: string }[];
+};
+
+export const documentationNavigation: DocsNavItem[] = [
   { label: "Overview", href: "#overview", icon: BookOpen },
   { label: "Principles", href: "#principles", icon: Compass },
   { label: "Foundations", href: "#foundations", icon: Palette },
-  { label: "Components", href: "#components", icon: Component },
+  {
+    label: "Components",
+    href: "#components",
+    icon: Component,
+    children: [
+      { label: "Actions & fields", href: "#components-actions-fields" },
+      { label: "Patient identity band", href: "#components-identity" },
+      { label: "Feedback & status", href: "#components-feedback" },
+      { label: "Work queue", href: "#components-queue" },
+      { label: "Lifecycle & audit", href: "#components-lifecycle" },
+      { label: "Scheduling & dashboards", href: "#components-scheduling" },
+    ],
+  },
   {
     label: "Clinical patterns",
     href: "#clinical-patterns",
     icon: Stethoscope,
+    children: [
+      { label: "Emergency & trauma", href: "#clinical-patterns-emergency" },
+      { label: "Surgical & critical care", href: "#clinical-patterns-surgical" },
+    ],
   },
   {
     label: "Accessibility",
@@ -70,4 +93,4 @@ export const documentationNavigation = [
     href: "#release-roadmap",
     icon: Rocket,
   },
-] as const;
+];

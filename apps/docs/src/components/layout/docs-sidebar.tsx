@@ -86,6 +86,36 @@ export function DocsSidebar() {
                   />
                   <span>{item.label}</span>
                 </a>
+
+                {item.children ? (
+                  <ul className="ml-[26px] mt-0.5 space-y-0.5 border-l border-border-subtle pl-3">
+                    {item.children.map((child) => {
+                      const isChildActive = activeHref === child.href;
+
+                      return (
+                        <li key={child.href}>
+                          <a
+                            href={child.href}
+                            data-doc-link={child.href}
+                            aria-current={
+                              isChildActive ? "location" : undefined
+                            }
+                            onClick={(event) =>
+                              handleNavigationClick(event, child.href)
+                            }
+                            className={`flex min-h-8 items-center rounded-md px-3 py-1.5 text-[13px] leading-5 transition-colors ${
+                              isChildActive
+                                ? "bg-selected font-semibold text-action"
+                                : "text-ink-tertiary hover:bg-surface-subtle hover:text-ink-primary"
+                            }`}
+                          >
+                            {child.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
               </li>
             );
           })}
@@ -99,12 +129,13 @@ export function DocsSidebar() {
           </p>
 
           <p className="mt-2 text-sm font-semibold leading-5">
-            Integrated OPD experience
+            Full-platform patterns
           </p>
 
           <p className="mt-2 text-xs leading-5 text-white/65">
-            Follow one patient journey across access,
-            consultation, diagnostics, medication and revenue.
+            From outpatient access through emergency, surgical
+            and critical care — every pattern reuses the same
+            shared components.
           </p>
 
           <a

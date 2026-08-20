@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import type { MouseEvent } from "react";
-import { Search } from "lucide-react";
 import { useDocsNavigation } from "@/components/layout/docs-navigation-provider";
+import { SearchDialog } from "@/components/layout/search-dialog";
 import { documentationNavigation } from "@/data/navigation";
 
 export function SiteHeader() {
@@ -58,21 +58,10 @@ export function SiteHeader() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="hidden h-9 min-w-60 items-center gap-2 rounded-md border border-border-default bg-surface px-3 text-left text-xs text-ink-secondary transition-colors hover:border-action md:flex"
-              aria-label="Search Spine Design System"
-            >
-              <Search aria-hidden="true" size={15} />
-              <span className="flex-1">Search the system</span>
-
-              <kbd className="ds-mono rounded border border-border-subtle bg-surface-subtle px-1.5 py-0.5 text-[10px]">
-                ⌘ K
-              </kbd>
-            </button>
+            <SearchDialog />
 
             <span className="rounded border border-border-default bg-surface-subtle px-2 py-1 text-[11px] font-semibold text-ink-secondary">
-              v1.0
+              v2.0
             </span>
           </div>
         </div>

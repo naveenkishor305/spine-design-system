@@ -691,7 +691,7 @@ export function ClinicalPatternsSection() {
           </article>
         </div>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+        <div id="clinical-patterns-emergency" className="mt-6 grid gap-6 xl:grid-cols-[0.85fr_1.15fr] scroll-mt-20">
           <article className="ds-panel overflow-hidden">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -783,7 +783,7 @@ export function ClinicalPatternsSection() {
           </article>
         </div>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <div id="clinical-patterns-surgical" className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr] scroll-mt-20">
           <article className="ds-panel overflow-hidden">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -795,7 +795,7 @@ export function ClinicalPatternsSection() {
               </h3>
 
               <p className="mt-2 text-xs leading-5 text-ink-secondary">
-                Surveying inpatient-care and surgical-critical-care's 43
+                Surveying inpatient-care and surgical-critical-care&apos;s 43
                 screens found only the WHO-style three-phase safety
                 checklist needs a new component. Everything else this
                 cluster needs already existed once the cross-cutting

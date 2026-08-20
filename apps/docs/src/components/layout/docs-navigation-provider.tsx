@@ -6,12 +6,21 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { ReactNode } from "react";
 import { documentationNavigation } from "@/data/navigation";
 
 const HEADER_OFFSET = 72;
+
+// Smooth-scrolling to a distant target (e.g. a sub-anchor found via search)
+// can take longer than a fixed short delay on a long page. While it's in
+// flight, the passive scroll listener below would otherwise "see" every
+// section it scrolls past and rewrite the URL hash to match -- fighting
+// the explicit navigation and leaving the address bar on whatever section
+// the animation happened to be passing when this settle window ends.
+const SCROLL_SETTLE_MS = 900;
 
 type HistoryMode = "push" | "replace" | "none";
 
@@ -27,8 +36,15 @@ type DocsNavigationContextValue = {
 const DocsNavigationContext =
   createContext<DocsNavigationContextValue | null>(null);
 
+const allNavigableHrefs = new Set(
+  documentationNavigation.flatMap((item) => [
+    item.href,
+    ...(item.children?.map((child) => child.href) ?? []),
+  ]),
+);
+
 function isValidHref(href: string) {
-  return documentationNavigation.some((item) => item.href === href);
+  return allNavigableHrefs.has(href);
 }
 
 function scrollToSection(
@@ -58,8 +74,14 @@ export function DocsNavigationProvider({
   children: ReactNode;
 }) {
   const [activeHref, setActiveHref] = useState("#overview");
+  const suppressScrollSpyRef = useRef(false);
+  const settleTimeoutRef = useRef<number | null>(null);
 
   const updateActiveSection = useCallback(() => {
+    if (suppressScrollSpyRef.current) {
+      return;
+    }
+
     let nextHref: (typeof documentationNavigation)[number]["href"] = documentationNavigation[0].href;
 
     for (const item of documentationNavigation) {
@@ -116,6 +138,20 @@ export function DocsNavigationProvider({
       }
 
       setActiveHref(href);
+
+      if (behavior === "smooth") {
+        suppressScrollSpyRef.current = true;
+
+        if (settleTimeoutRef.current !== null) {
+          window.clearTimeout(settleTimeoutRef.current);
+        }
+
+        settleTimeoutRef.current = window.setTimeout(() => {
+          suppressScrollSpyRef.current = false;
+          settleTimeoutRef.current = null;
+        }, SCROLL_SETTLE_MS);
+      }
+
       scrollToSection(href, behavior);
     },
     [],
@@ -181,6 +217,10 @@ export function DocsNavigationProvider({
 
       if (layoutFrame !== null) {
         window.cancelAnimationFrame(layoutFrame);
+      }
+
+      if (settleTimeoutRef.current !== null) {
+        window.clearTimeout(settleTimeoutRef.current);
       }
 
       window.removeEventListener("scroll", handleScroll);

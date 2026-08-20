@@ -227,7 +227,7 @@ export function ComponentsSection() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 xl:grid-cols-2">
+        <div id="components-actions-fields" className="mt-10 grid gap-6 xl:grid-cols-2 scroll-mt-20">
           <article className="ds-panel overflow-hidden">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -359,7 +359,7 @@ export function ComponentsSection() {
           </article>
         </div>
 
-        <article className="ds-panel mt-6 overflow-hidden">
+        <article id="components-identity" className="ds-panel mt-6 overflow-hidden scroll-mt-20">
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border-subtle p-5 md:p-6">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -428,7 +428,7 @@ export function ComponentsSection() {
           </div>
         </article>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <div id="components-feedback" className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr] scroll-mt-20">
           <article className="ds-panel overflow-hidden">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -489,7 +489,7 @@ export function ComponentsSection() {
           </article>
         </div>
 
-        <article className="ds-panel mt-6 overflow-hidden">
+        <article id="components-queue" className="ds-panel mt-6 overflow-hidden scroll-mt-20">
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border-subtle p-5 md:p-6">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
@@ -558,7 +558,7 @@ export function ComponentsSection() {
         </article>
 
         <div className="mt-6 grid gap-6 xl:grid-cols-2">
-          <article className="ds-panel overflow-hidden">
+          <article id="components-lifecycle" className="ds-panel overflow-hidden scroll-mt-20">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
                 Shared primitives · lifecycle &amp; audit
@@ -635,7 +635,7 @@ export function ComponentsSection() {
             </div>
           </article>
 
-          <article className="ds-panel overflow-hidden">
+          <article id="components-scheduling" className="ds-panel overflow-hidden scroll-mt-20">
             <div className="border-b border-border-subtle p-5 md:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.1em] text-action">
                 Shared primitives · scheduling, dispatch &amp; dashboards
