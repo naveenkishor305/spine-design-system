@@ -24,7 +24,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prepare": "tsup"
   },
   "peerDependencies": {
     "react": ">=19",
