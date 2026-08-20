@@ -19,6 +19,7 @@ import {
   ComplianceCountdown,
   DispatchBoard,
   IconButton,
+  InteractionSeverityBadge,
   IsolationTypeBadge,
   MetricTile,
   ProcessStageTracker,
@@ -610,6 +611,8 @@ export function ComponentsSection() {
                 <RiskScoreBadge label="Safeguarding" level="critical" />
                 <IsolationTypeBadge type="contact" />
                 <IsolationTypeBadge type="airborne" />
+                <InteractionSeverityBadge severity="contraindicated" label="Warfarin + Aspirin" />
+                <InteractionSeverityBadge severity="moderate" label="Metformin + Contrast" />
               </div>
             </div>
           </article>

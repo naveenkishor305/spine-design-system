@@ -998,6 +998,17 @@
   font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
 }
 
+.spine-interaction-badge {
+  text-transform: capitalize;
+}
+
+.spine-interaction-badge__label {
+  color: inherit;
+  font-weight: 600;
+  text-transform: none;
+  opacity: 0.85;
+}
+
 .spine-isolation-badge {
   display: inline-flex;
   align-items: center;

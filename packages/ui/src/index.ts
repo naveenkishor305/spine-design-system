@@ -62,6 +62,12 @@ export type { ChainOfCustodyTrailProps, CustodyHandoff } from "./components/chai
 export { RiskScoreBadge } from "./components/risk-score-badge";
 export type { RiskScoreBadgeProps, RiskLevel } from "./components/risk-score-badge";
 
+export { InteractionSeverityBadge } from "./components/interaction-severity-badge";
+export type {
+  InteractionSeverityBadgeProps,
+  InteractionSeverity,
+} from "./components/interaction-severity-badge";
+
 export { IsolationTypeBadge } from "./components/isolation-type-badge";
 export type { IsolationTypeBadgeProps, IsolationType } from "./components/isolation-type-badge";
 
